@@ -11,7 +11,8 @@ module.exports = {
     title: pkg.name,
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width' },
+      { name: 'format-detection', content: 'telephone=no' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
@@ -28,15 +29,20 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    '@/assets/reset.css',
+    'element-ui/lib/theme-chalk/index.css',
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     {
-      src:'@/plugins/element-ui',
-      ssr: false
+      src:'@/plugins/element-ui', //element-ui@2.8与nuxt兼容性有问题
+      ssr: true
+    },
+    {
+      src:"@/plugins/http",
+      ssr:true
     }
   ],
 

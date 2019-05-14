@@ -6,19 +6,11 @@
         nuxt-koa-project
       </h1>
       <h2 class="subtitle">
-        My top-notch Nuxt.js project
+        基于nuxt创建的VUE SSR渲染项目
       </h2>
       <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
+        <nuxt-link to="/patent?id=2"><el-button type="primary">进入专栏页面</el-button></nuxt-link>
+        <nuxt-link to="/subject?id=1"><el-button type="primary">进入专题页面</el-button></nuxt-link>
       </div>
     </div>
   </section>
@@ -27,6 +19,8 @@
 <script>
 import Logo from '~/components/Logo.vue'
 
+// http://service.inswindows.com/html/head/subject?hs_id=1
+// http://service.inswindows.com/html/head/patent?hp_id=2
 export default {
   components: {
     Logo
