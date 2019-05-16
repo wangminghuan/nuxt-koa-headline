@@ -1,22 +1,24 @@
 # nuxt-koa-project
 
-> My top-notch Nuxt.js project
-
 ## Build Setup
 
-``` bash
-# install dependencies
-$ yarn install
+# 安装依赖
+	$ yarn install
 
-# serve with hot reload at localhost:3000
-$ yarn run dev
+# 运行开发模式
+	$ yarn run dev
 
-# build for production and launch server
-$ yarn run build
-$ yarn start
+# 以生产模式启动一个Web服务器
+	$ yarn run build
+	$ yarn start
 
-# generate static project
-$ yarn run generate
-```
+# 编译应用，并依据路由配置生成对应的HTML文件 (用于静态站点的部署)。
+	$ yarn run generate
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+### Other
+如果只部署服务器端（非静态），只需要保留如下结构即可:
+
+	  ├─.nuxt
+	  ├─server        
+	  ├─nuxt.config.js   
+	  ├─package.json     
