@@ -9,6 +9,7 @@ module.exports = {
   */
  server: {
   port: 3001, // default: 3000
+  // host: '0.0.0.0', //必须这样部署，否则koa服务在阿里云上无法访问
 },
   head: {
     title: pkg.name,
@@ -59,7 +60,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    transpile: [/^element-ui/],
+    // transpile: [/^element-ui/],
     extractCSS: { allChunks: true },
     /*
     ** You can extend webpack config here
