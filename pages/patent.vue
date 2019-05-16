@@ -35,8 +35,11 @@
           </div>
           <div class="pic"><img :src="item.ha_image"></div>
         </li>
-        <mt-spinner v-show="loading && !loadOver" type="fading-circle" :size="20"></mt-spinner>
-        <p class="finish-tips" v-show="loadOver">-- 已经到底了 --</p>
+        <mt-spinner v-show="loading && !loadOver"
+                    type="fading-circle"
+                    :size="20"></mt-spinner>
+        <p class="finish-tips"
+           v-show="loadOver">-- 已经到底了 --</p>
       </ul>
     </div>
   </div>
@@ -47,8 +50,8 @@ export default {
   data () {
     return {
       loading: false,
-      page:2,
-      loadOver:false
+      page: 2,
+      loadOver: false
     }
   },
   methods: {
@@ -62,36 +65,48 @@ export default {
         page: this.page
       })
         .then((res) => {
-          if(res.data.data && res.data.data.articlelist && res.data.data.articlelist instanceof Array && res.data.data.articlelist.length>0){
-            this.renderData.articlelist=this.renderData.articlelist.concat(res.data.data.articlelist);
+          if (res.data.data && res.data.data.articlelist && res.data.data.articlelist instanceof Array && res.data.data.articlelist.length > 0) {
+            this.renderData.articlelist = this.renderData.articlelist.concat(res.data.data.articlelist);
             this.page++;
             this.loading = false;
-          }else{
-            this.loadOver=true;
+          } else {
+            this.loadOver = true;
           }
-           
-          
+
+
         })
     }
   },
-  asyncData (params) {//请求
-    return Vue.http.post(`/api/head/head/patentDetail`, {
+  // 写法1 ：
+  async asyncData (params) {
+    let  response  = await Vue.http.post(`/api/head/head/patentDetail`, {
       hp_id: params.query.id || 2,
       page: 1
     })
-      .then(function (response) {
-        // console.log(response.data)
-        return { 
-          renderData: response.data.data,
-          pageId:params.query.id || 2
-           };
-      })
-  },
+    return  {
+      renderData: response.data.data,
+      pageId: params.query.id || 2
+    }
+  }
+  // 写法2：
+  // asyncData (params) {//请求
+  //   return Vue.http.post(`/api/head/head/patentDetail`, {
+  //     hp_id: params.query.id || 2,
+  //     page: 1
+  //   })
+  //     .then(function (response) {
+  //       // console.log(response.data)
+  //       return { 
+  //         renderData: response.data.data,
+  //         pageId:params.query.id || 2
+  //          };
+  //     })
+  // },
 }
 </script>
 <style lang="less">
 @import url("../assets/item.css");
-.mint-spinner-fading-circle{
+.mint-spinner-fading-circle {
   margin: 0 auto;
 }
 .column-wrap {
@@ -233,11 +248,11 @@ export default {
 .column-wrap .art-list h4 span {
   font-size: 14px;
 }
-.finish-tips{
+.finish-tips {
   text-align: center;
-    height: 20px;
-    line-height: 20px;
-    color: #7e7e7e;
+  height: 20px;
+  line-height: 20px;
+  color: #7e7e7e;
 }
 </style>
 

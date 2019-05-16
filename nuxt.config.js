@@ -7,6 +7,9 @@ module.exports = {
   /*
   ** Headers of the page
   */
+ server: {
+  port: 3001, // default: 3000
+},
   head: {
     title: pkg.name,
     meta: [
