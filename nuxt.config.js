@@ -30,14 +30,14 @@ module.exports = {
   */
   css: [
     '@/assets/reset.css',
-    'element-ui/lib/theme-chalk/index.css',
+    // 'element-ui/lib/theme-chalk/index.css',
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     {
-      src:'@/plugins/element-ui', //element-ui@2.8与nuxt兼容性有问题
+      src:'@/plugins/mint-ui', //element-ui@2.8与nuxt兼容性有问题
       ssr: true
     },
     {

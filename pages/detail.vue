@@ -37,10 +37,9 @@ export default {
     }
   },
   asyncData (params) {//请求
-	return Vue.http.get('/api/head/head/detail',{params:{
-    ha_id:params.query.id,
-    u_id:1
-  }})
+	return Vue.http.post('/api/head/head/detail',{
+    ha_id:params.query.id
+  })
 	.then(function (response) {
             return { renderData: response.data.data  && response.data.data.detail?response.data.data:{
                 detail:{},
