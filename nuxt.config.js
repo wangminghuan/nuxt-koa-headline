@@ -9,7 +9,7 @@ module.exports = {
   */
  server: {
   port: 3001, // default: 3000
-  // host: '0.0.0.0', //必须这样部署，否则koa服务在阿里云上无法访问
+  host: '0.0.0.0', //必须这样部署，否则koa服务在阿里云上无法访问
 },
 router: {
   // 在每页渲染前运行 middleware/user-agent.js 中间件的逻辑
