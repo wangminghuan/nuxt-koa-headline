@@ -60,10 +60,10 @@ export default {
     },
     loadMore () {
       this.loading = true;
-      this.$http.get(`/api/head/head/patentDetail`, {params:{
-        hp_id: this.pageId,
-        page: this.page
-      }})
+      this.$http.get(`/api/head/head/patentDetail`, {        params: {
+          hp_id: this.pageId,
+          page: this.page
+        }      })
         .then((res) => {
           if (res.data.data && res.data.data.articlelist && res.data.data.articlelist instanceof Array && res.data.data.articlelist.length > 0) {
             this.renderData.articlelist = this.renderData.articlelist.concat(res.data.data.articlelist);
@@ -79,11 +79,11 @@ export default {
   },
   // 写法1 ：
   async asyncData (params) {
-    let  response  = await Vue.http.get(`/api/head/head/patentDetail`, {params:{
-      hp_id: params.query.id || 2,
-      page: 1
-    }})
-    return  {
+    let response = await Vue.http.get(`/api/head/head/patentDetail`, {      params: {
+        hp_id: params.query.id || 2,
+        page: 1
+      }    })
+    return {
       renderData: response.data.data,
       pageId: params.query.id || 2
     }
@@ -212,9 +212,8 @@ export default {
   word-break: break-all;
   text-overflow: ellipsis;
   display: -webkit-box;
-  /*! autoprefixer: off */
+  /*! autoprefixer: ignore next */
   -webkit-box-orient: vertical;
-  /*! autoprefixer: on */
   -webkit-line-clamp: 2;
   overflow: hidden;
   color: #959595;

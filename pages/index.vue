@@ -9,8 +9,12 @@
         基于nuxt创建的VUE SSR渲染项目
       </h2>
       <div class="links">
-        <nuxt-link to="/patent?id=2"><mt-button type="primary">进入专栏页面</mt-button></nuxt-link>
-        <nuxt-link to="/subject?id=1"><mt-button type="primary">进入专题页面</mt-button></nuxt-link>
+        <nuxt-link to="/patent?id=2">
+          <mt-button type="primary">进入专栏页面</mt-button>
+        </nuxt-link>
+        <nuxt-link to="/subject?id=1">
+          <mt-button type="primary">进入专题页面</mt-button>
+        </nuxt-link>
       </div>
     </div>
   </section>
@@ -36,8 +40,8 @@ export default {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 24px;
