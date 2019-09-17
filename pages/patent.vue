@@ -60,10 +60,10 @@ export default {
     },
     loadMore () {
       this.loading = true;
-      this.$http.post(`/api/head/head/patentDetail`, {
+      this.$http.get(`/api/head/head/patentDetail`, {params:{
         hp_id: this.pageId,
         page: this.page
-      })
+      }})
         .then((res) => {
           if (res.data.data && res.data.data.articlelist && res.data.data.articlelist instanceof Array && res.data.data.articlelist.length > 0) {
             this.renderData.articlelist = this.renderData.articlelist.concat(res.data.data.articlelist);
@@ -79,10 +79,10 @@ export default {
   },
   // 写法1 ：
   async asyncData (params) {
-    let  response  = await Vue.http.post(`/api/head/head/patentDetail`, {
+    let  response  = await Vue.http.get(`/api/head/head/patentDetail`, {params:{
       hp_id: params.query.id || 2,
       page: 1
-    })
+    }})
     return  {
       renderData: response.data.data,
       pageId: params.query.id || 2

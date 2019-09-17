@@ -37,11 +37,11 @@ export default {
     }
   },
   asyncData (params) {//请求
-	return Vue.http.post(`/api/head/head/subjectDetail`,{
+	return Vue.http.get(`/api/head/head/subjectDetail`,{params:{
       hs_id:params.query.id || 2
-  })
+  }})
 	.then(function (response) {
-            // console.log(response.data)
+            console.log(response.data)
             return { renderData: response.data.data};
         })
   },

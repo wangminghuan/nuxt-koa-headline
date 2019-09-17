@@ -11,6 +11,10 @@ module.exports = {
   port: 3001, // default: 3000
   // host: '0.0.0.0', //必须这样部署，否则koa服务在阿里云上无法访问
 },
+router: {
+  // 在每页渲染前运行 middleware/user-agent.js 中间件的逻辑
+  middleware: 'user-agent'
+},
   head: {
     title: pkg.name,
     meta: [
@@ -21,6 +25,9 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script:[
+      {type:"text/javascript",src:"https://s29.9956.cn/static/common/js/sign.min.js?v=1549865000"}
     ]
   },
 
