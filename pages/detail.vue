@@ -116,6 +116,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  /*! autoprefixer: ignore next */
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   color: rgba(17, 23, 29, 0.86);

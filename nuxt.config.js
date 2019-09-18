@@ -65,7 +65,7 @@ router: {
   */
   build: {
     // transpile: [/^element-ui/],
-    extractCSS: { allChunks: true },
+    extractCSS: { splitChunks: true },
     /*
     ** You can extend webpack config here
     */
