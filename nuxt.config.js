@@ -8,7 +8,7 @@ module.exports = {
   ** Headers of the page
   */
  server: {
-  port: 3001, // default: 3000
+  port: 3002, // default: 3000
   host: '0.0.0.0', //必须这样部署，否则koa服务在阿里云上无法访问
 },
 router: {
