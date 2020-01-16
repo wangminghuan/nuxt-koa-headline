@@ -27,7 +27,7 @@
 
 ## 反向代理
 
-- 通过[@nuxtjs/axios]模块(https://axios.nuxtjs.org/)进行请求，同时支持服务端与客户端
+- 通过[@nuxtjs/axios](https://axios.nuxtjs.org/)模块进行请求，同时支持服务端与客户端
 - nuxt.config.js 配置来分别对服务端与客户端进行配置：
 
       axios: {

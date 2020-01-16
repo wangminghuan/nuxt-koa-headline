@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name: "prod",
+    name: "nuxt-koa-headline",
     script: "./server/index.js",
     env: {
       NODE_ENV: "production",
