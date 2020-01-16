@@ -33,24 +33,23 @@
   </div>
 </template>
 <script>
-import Vue from "vue";
 export default {
   data () {
     return {
 
     }
   },
-  asyncData (params) {//请求
-    return Vue.http.get('/api/head/head/detail', {params:{
-      ha_id: params.query.id
-    }})
-      .then((response)=> {
-        return { 
+  asyncData ({ $axios, query }) {//请求
+    return $axios.get('/api/head/head/detail', {params: {
+        ha_id: query.id
+      }})
+      .then((response) => {
+        return {
           renderData: response.data.data && response.data.data.detail ? response.data.data : {
             detail: {},
             title: ""
-           }
-          };
+          }
+        };
       })
   },
   methods: {
@@ -62,39 +61,38 @@ export default {
 </script>
 
 <style lang="less">
-@import url("../assets/item.css");
 .detail-com-title {
   text-align: center;
   margin-bottom: 8px;
   position: relative;
-}
 
-.detail-com-title em {
-  font-size: 18px;
-  font-weight: 400;
-  color: #353535;
-  text-align: center;
-  font-weight: 700;
-  font-weight: 600;
-  color: #333;
-  padding: 0 2px;
-  background: -webkit-linear-gradient(
-    top,
-    hsla(0, 0%, 100%, 0.1) 50%,
-    rgba(163, 201, 255, 0.35) 0
-  );
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(50%, hsla(0, 0%, 100%, 0.1)),
-    color-stop(50%, rgba(163, 201, 255, 0.35))
-  );
-  background: linear-gradient(
-    180deg,
-    hsla(0, 0%, 100%, 0.1) 50%,
-    rgba(163, 201, 255, 0.35) 0
-  );
+  em {
+    font-size: 18px;
+    font-weight: 400;
+    color: #353535;
+    text-align: center;
+    font-weight: 700;
+    font-weight: 600;
+    color: #333;
+    padding: 0 2px;
+    background: -webkit-linear-gradient(
+      top,
+      hsla(0, 0%, 100%, 0.1) 50%,
+      rgba(163, 201, 255, 0.35) 0
+    );
+    background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(50%, hsla(0, 0%, 100%, 0.1)),
+      color-stop(50%, rgba(163, 201, 255, 0.35))
+    );
+    background: linear-gradient(
+      180deg,
+      hsla(0, 0%, 100%, 0.1) 50%,
+      rgba(163, 201, 255, 0.35) 0
+    );
+  }
 }
 
 .recom-more {
@@ -104,53 +102,54 @@ export default {
 .recom-more .article-list-item:last-child {
   border-bottom: 0;
 }
+
 .article-wrap {
   background-color: #fff;
   padding: 15px;
   padding-bottom: 0;
-}
 
-.article-wrap h2 {
-  font-size: 20px;
-  font-weight: 700;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  /*! autoprefixer: ignore next */
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  color: rgba(17, 23, 29, 0.86);
-  line-height: 30px;
-}
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /*! autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: rgba(17, 23, 29, 0.86);
+    line-height: 30px;
+  }
 
-.article-wrap .article-info {
-  font-size: 12px;
-  font-weight: 400;
-  color: #999;
-  line-height: 20px;
-  margin: 32px 0;
-}
+  .article-info {
+    font-size: 12px;
+    font-weight: 400;
+    color: #999;
+    line-height: 20px;
+    margin: 32px 0;
 
-.article-wrap .article-info span {
-  margin-right: 8px;
-}
+    i {
+      margin-left: 5px;
+    }
 
-.article-wrap .article-info i {
-  margin-left: 5px;
-}
+    span {
+      margin-right: 8px;
+    }
+  }
 
-.article-wrap .content {
-  line-height: 30px;
-}
+  .content {
+    line-height: 30px;
 
-.article-wrap .content img {
-  display: block;
-  margin: 0 auto;
-}
+    img {
+      display: block;
+      margin: 0 auto;
+    }
 
-.article-wrap .content p {
-  font-size: 14px;
-  color: #555;
-  line-height: 28px;
+    p {
+      font-size: 14px;
+      color: #555;
+      line-height: 28px;
+    }
+  }
 }
 </style>

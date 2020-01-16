@@ -38,28 +38,39 @@ router: {
   */
   css: [
     '@/assets/reset.css',
+    '@/assets/item.css',
     // 'element-ui/lib/theme-chalk/index.css',
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/http',
     {
       src:'@/plugins/mint-ui', //element-ui@2.8与nuxt兼容性有问题
       ssr: true
-    },
-    {
-      src:"@/plugins/http",
-      ssr:true
     }
   ],
 
   /*
   ** Nuxt.js modules
   */
-  modules: [
-  ],
-
+ modules: [
+  '@nuxtjs/axios',
+],
+axios: {
+  proxy: true,
+  baseURL: 'http://service.inswindows.com',
+  browserBaseURL:"/",
+  credentials: false,
+},
+proxy: {
+  '/api': {
+    target: 'http://service.inswindows.com',
+    changeOrigin: true,
+    // pathRewrite: { '^/api': '' },
+  },
+},
   /*
   ** Build configuration
   */

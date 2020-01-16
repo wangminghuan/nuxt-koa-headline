@@ -45,7 +45,6 @@
   </div>
 </template>
 <script>
-import Vue from "vue";
 export default {
   data () {
     return {
@@ -60,7 +59,7 @@ export default {
     },
     loadMore () {
       this.loading = true;
-      this.$http.get(`/api/head/head/patentDetail`, {        params: {
+      this.$axios.get(`/api/head/head/patentDetail`, {        params: {
           hp_id: this.pageId,
           page: this.page
         }      })
@@ -78,14 +77,14 @@ export default {
     }
   },
   // 写法1 ：
-  async asyncData (params) {
-    let response = await Vue.http.get(`/api/head/head/patentDetail`, {      params: {
-        hp_id: params.query.id || 2,
+  async asyncData ({ $axios, query }) {
+    let response = await $axios.get(`/api/head/head/patentDetail`, {      params: {
+        hp_id: query.id || 2,
         page: 1
       }    })
     return {
       renderData: response.data.data,
-      pageId: params.query.id || 2
+      pageId: query.id || 2
     }
   }
   // 写法2：
@@ -105,147 +104,147 @@ export default {
 }
 </script>
 <style lang="less">
-@import url("../assets/item.css");
 .mint-spinner-fading-circle {
   margin: 0 auto;
 }
+
 .column-wrap {
   background-color: #f2f2f2;
-}
 
-.column-wrap .head {
-  background-color: #fff;
-  margin-bottom: 10px;
-}
+  .head {
+    background-color: #fff;
+    margin-bottom: 10px;
+  }
 
-.column-wrap .head-bg {
-  height: 103px;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-}
+  .head-bg {
+    height: 103px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
 
-.column-wrap .head-bg:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  height: 103px;
-  display: block;
-  z-index: 1;
-}
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      height: 103px;
+      display: block;
+      z-index: 1;
+    }
+  }
 
-.column-wrap .content-wrap {
-  position: relative;
-  height: 55px;
-}
+  .content-wrap {
+    position: relative;
+    height: 55px;
+  }
 
-.column-wrap .inner-wrap {
-  position: absolute;
-  top: -55px;
-  left: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  color: #959595;
-  font-size: 12px;
-  z-index: 2;
-  height: 110px;
-  width: 100%;
-  overflow: hidden;
-}
+  .inner-wrap {
+    position: absolute;
+    top: -55px;
+    left: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    color: #959595;
+    font-size: 12px;
+    z-index: 2;
+    height: 110px;
+    width: 100%;
+    overflow: hidden;
+  }
 
-.column-wrap .avatar {
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
-  margin-right: 10px;
-  margin-left: 15px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  -ms-grid-row-align: center;
-  align-self: center;
-  border: 1px solid #f2f2f2;
-}
+  .avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    margin-right: 10px;
+    margin-left: 15px;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    border: 1px solid #f2f2f2;
 
-.column-wrap .avatar,
-.column-wrap .avatar img {
-  height: 50px;
-  width: 50px;
-}
+    &,
+    & img {
+      height: 50px;
+      width: 50px;
+    }
+  }
 
-.column-wrap .column-bg {
-  width: 100%;
-  height: auto;
-  left: 50%;
-  top: -50%;
-  position: relative;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
+  .column-bg {
+    width: 100%;
+    height: auto;
+    left: 50%;
+    top: -50%;
+    position: relative;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
 
-.column-wrap .content {
-  margin-right: 15px;
-  width: 100%;
-}
+  .content {
+    margin-right: 15px;
+    width: 100%;
 
-.column-wrap .content h1 {
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 20px;
-  margin-top: 27px;
-  margin-bottom: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    h1 {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 20px;
+      margin-top: 27px;
+      margin-bottom: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-.column-wrap .content p {
-  word-break: break-all;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  /*! autoprefixer: ignore next */
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  color: #959595;
-  font-size: 12px;
-}
+    p {
+      word-break: break-all;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      /*! autoprefixer: ignore next */
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      color: #959595;
+      font-size: 12px;
+    }
+  }
 
-.column-wrap .art-list h4 {
-  height: 44px;
-  line-height: 44px;
-  padding-left: 20px;
-  border-bottom: 1px solid #e5e5e5;
-  position: relative;
-  background-color: #fff;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+  .art-list h4 {
+    height: 44px;
+    line-height: 44px;
+    padding-left: 20px;
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+    background-color: #fff;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 
-.column-wrap .art-list h4:after {
-  content: "";
-  position: absolute;
-  height: 14px;
-  width: 3px;
-  background-color: #4396f4;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-  left: 10px;
-  border-radius: 2px;
-}
+    &:after {
+      content: "";
+      position: absolute;
+      height: 14px;
+      width: 3px;
+      background-color: #4396f4;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      left: 10px;
+      border-radius: 2px;
+    }
 
-.column-wrap .art-list h4 span {
-  font-size: 14px;
+    span {
+      font-size: 14px;
+    }
+  }
 }
 .finish-tips {
   text-align: center;
@@ -254,5 +253,4 @@ export default {
   color: #7e7e7e;
 }
 </style>
-
 

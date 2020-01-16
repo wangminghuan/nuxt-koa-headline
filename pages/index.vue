@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        nuxt-koa-project
+        nuxt-koa-headline
       </h1>
       <h2 class="subtitle">
         基于nuxt创建的VUE SSR渲染项目
