@@ -34,9 +34,9 @@
 </template>
 <script>
 export default {
+  watchQuery: ['id'], //监听参数字符串更改并在更改时执行组件方法 asyncData
   data () {
     return {
-
     }
   },
   asyncData ({ $axios, query }) {//请求
