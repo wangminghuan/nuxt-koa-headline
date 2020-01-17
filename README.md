@@ -66,5 +66,7 @@ SSR框架中并不是所有请求都是服务端获取，服务端获取的场�
 
 无论nuxtJs 与 nextJs 均为这种模式
 
+## [在线预览](http://122.51.207.71:3002/)
+
 ## 参考
 - [Nuxt.js中文文档](https://zh.nuxtjs.org/guide/installation)
