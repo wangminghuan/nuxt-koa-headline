@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     handleJump (item) {
-      window.location.href = "detail?id=" + item.ha_id
+      this.$router.push("/detail?id=" + item.ha_id)
     }
   }
 }
