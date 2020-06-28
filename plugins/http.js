@@ -1,21 +1,9 @@
-import qs from "qs"
-import encodeParams from "~/assets/sign"
+
+// process.browser 可以判断当前是服务端在请求还是客户端在请求
 export default function ({ $axios, redirect }) {
  // request interceptor
  $axios.interceptors.request.use(
   config => {
-      if(config.method=="post"){
-        //post方式
-        let data = qs.parse(config.data)
-        config.data = encodeParams(config.url,{
-          ...data
-        })
-      }else if(config.method=="get"){
-        //get方式
-        config.params = encodeParams(config.url,{
-          ...config.params
-        })
-      }
     return config
   },
   error => {
@@ -25,7 +13,7 @@ export default function ({ $axios, redirect }) {
  )
  $axios.interceptors.response.use( response =>{
    //服务端请求状态码不为0就跳转到404，客户端正常返回
-  if(response.data.code==0 || process.browser){
+  if(response.data || process.browser){
      return response;
   }else{
     redirect('/404') 

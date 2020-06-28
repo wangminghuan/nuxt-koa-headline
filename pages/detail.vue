@@ -1,32 +1,17 @@
 <template>
   <div class="detail-outer-wrap">
-    <div class="detail-inner-wrap">
+     <div class="detail-inner-wrap">
       <div class="article-wrap">
         <h2>{{renderData.title}}</h2>
-        <p class="article-info"><span class="time">{{renderData.detail.time}}</span> <span>阅读<i>{{renderData.detail.ha_readNum}}</i></span> <span>赞<i>{{renderData.detail.ha_upNum}}</i></span></p>
+        <div class="article-info">
+        <div class="left">
+         <img style="width:20px;margin-right:10px" :src="renderData.media_user.avatar_url"><span>{{renderData.source}}</span>
+        </div>
+        <div class="right"><span>{{renderData.comment_count}}评论 </span><em v-if="renderData.publish_time">{{$formatTime(renderData.publish_time)}}</em></div></div>
         <div class="content-wrap">
           <div class="content ql-editor"
-               v-html="renderData.detail.ha_content"></div>
+               v-html="renderData.content"></div>
         </div>
-        <p class="article-info"><span>小编：<i>{{renderData.detail.ha_author}}</i></span> <span>文章来源：<i>{{renderData.detail.ha_source}}</i></span></p>
-      </div>
-      <div class="recom-more">
-        <h4 class="detail-com-title"><em>相关推荐</em></h4>
-        <ul class="article-list-wrap">
-          <li class="article-list-item"
-              v-for="(item,index) in renderData.recommendList"
-              :key="index"
-              @click="handleJump(item)">
-            <div class="cont">
-              <p>{{item.ha_title}}</p>
-              <ul class="tag-btm">
-                <div class="nums"><b><em class="tag">{{item.ha_tags}}</em><em class="read">阅读 {{item.ha_readNum}}</em></b> <em class="time">{{item.time}}
-                  </em></div>
-              </ul>
-            </div>
-            <div class="pic"><img :src="item.ha_image"></div>
-          </li>
-        </ul>
       </div>
     </div>
     <div style="height:20px"></div>
@@ -40,21 +25,43 @@ export default {
     }
   },
   asyncData ({ $axios, query }) {//请求
-    return $axios.get('/api/head/head/detail', {params: {
-        ha_id: query.id
-      }})
+    return $axios.get(process.server?`/i${query.id}/info/`:`/api/i${query.id}/info/`, {params: {
+          _signature:'HLIIRxARQk77xfBBg2LRhxyyCF',
+          i:query.id
+        }})
       .then((response) => {
         return {
-          renderData: response.data.data && response.data.data.detail ? response.data.data : {
-            detail: {},
-            title: ""
-          }
+          renderData: response.data.data||{}
         };
       })
   },
   methods: {
     handleJump (item) {
       this.$router.push("/detail?id=" + item.ha_id)
+    },
+    $formatTime(data,type){
+        var _data = data;
+        //如果是13位正常，如果是10位则需要转化为毫秒
+        if (String(data).length == 13) {
+          _data = data
+        } else {
+          _data = data*1000
+        }
+        const time = new Date(_data);    
+        const Y = time.getFullYear();
+        const Mon = time.getMonth() + 1;
+        const Day = time.getDate();
+        const H = time.getHours();
+        const Min = time.getMinutes();
+        const S = time.getSeconds();
+        //自定义选择想要返回的类型
+        if(type=="Y"){
+          return `${Y}-${Mon}-${Day}`
+        }else if(type=="H"){
+          return `${H}:${Min}:${S}`
+        }else{
+          return `${Y}-${Mon}-${Day} ${H}:${Min}:${S}`
+        }
     }
   }
 }

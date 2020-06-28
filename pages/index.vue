@@ -9,11 +9,8 @@
         基于nuxt创建的VUE SSR渲染项目
       </h2>
       <div class="links">
-        <nuxt-link to="/patent?id=3">
-          <mt-button type="primary">进入专栏页面</mt-button>
-        </nuxt-link>
-        <nuxt-link to="/subject?id=2">
-          <mt-button type="primary">进入专题页面</mt-button>
+        <nuxt-link to="/list">
+          <mt-button type="primary">今日头条-推荐板块</mt-button>
         </nuxt-link>
       </div>
     </div>

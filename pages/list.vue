@@ -1,39 +1,37 @@
 <template>
   <div class="column-wrap">
-    <div class="head">
-      <div class="head-bg"><img alt="pic"
-             :src="renderData.patentinfo.hp_bgurl"
-             class="column-bg">
-      </div>
-      <section class="content-wrap">
-        <div class="inner-wrap">
-          <div class="avatar"><img alt="pic"
-                 :src="renderData.patentinfo.hp_headurl"></div>
-          <div class="content">
-            <h1>{{renderData.patentinfo.hp_name}}</h1>
-            <p>{{renderData.patentinfo.hp_describe}}</p>
-          </div>
-        </div>
-      </section>
-    </div>
     <div class="art-list">
-      <h4><span>相关文章</span></h4>
       <ul class="article-list-wrap"
           v-infinite-scroll="loadMore"
           infinite-scroll-disabled="loading"
           infinite-scroll-distance="10">
         <li class="article-list-item"
-            v-for="(item,index) in renderData.articlelist"
+            v-for="(item,index) in list"
             :key="index"
             @click="handleJump(item)">
-          <div class="cont">
-            <p>{{item.ha_title}}</p>
-            <ul class="tag-btm">
-              <div class="nums"><b><em class="tag">{{item.ha_tags}}</em><em class="read">阅读 {{item.ha_readNum}}</em></b> <em class="time">{{item.time}}
-                </em></div>
-            </ul>
-          </div>
-          <div class="pic"><img :src="item.ha_image"></div>
+          <template v-if="item.image_list && item.image_list.length>0">
+            <div class="cont">
+              <p>{{item.title}}</p>
+              <div class="img-arr">
+                <div class="pic"
+                     v-for="(sitem,sindex) in item.image_list"
+                     :key="sindex"><img :src="sitem.url"></div>
+              </div>
+              <ul class="tag-btm">
+                <div class="nums"><b><em class="tag">{{item.media_name}}</em><em class="read">评论 {{item.comment_count}}</em></b><em class="time">{{item.datetime}}</em></div>
+              </ul>
+            </div>
+          </template>
+          <template v-else>
+            <div class="cont">
+              <p>{{item.title}}</p>
+              <ul class="tag-btm">
+                <div class="nums"><b><em class="tag">{{item.media_name}}</em><em class="read">评论 {{item.comment_count}}</em></b> <em class="time">{{item.datetime}}</em></div>
+              </ul>
+            </div>
+            <div class="pic"
+                 v-if="item.large_image_url"><img :src="item.large_image_url"></div>
+          </template>
         </li>
         <mt-spinner v-show="loading && !loadOver"
                     type="fading-circle"
@@ -55,52 +53,56 @@ export default {
   },
   methods: {
     handleJump (item) {
-      this.$router.push("/detail?id=" + item.ha_id)
+      this.$router.push("/detail?id=" + item.item_id)
     },
     loadMore () {
       this.loading = true;
-      this.$axios.get(`/api/head/head/patentDetail`, {        params: {
-          hp_id: this.pageId,
+      const behot_time = this.list[this.list.length - 1] ? this.list[this.list.length - 1].behot_time : (new Date().getTime()-2*60*60*1000).toString().substring(0,10);
+      this.$axios.get(`/api/list/`, {
+        params: {
+          tag: '__all__',
+          ac: 'wap',
+          count: '20',
+          format: 'json_raw',
+          as: 'A1750EBF6820180',
+          cp: '5EF860E1D8F03E1',
+          max_behot_time: behot_time,
+          _signature: 'zzhYuAAAkcgoT6C-L.hV.s84WK',
+          i: behot_time,
           page: this.page
-        }      })
+        }})
         .then((res) => {
-          if (res.data.data && res.data.data.articlelist && res.data.data.articlelist instanceof Array && res.data.data.articlelist.length > 0) {
-            this.renderData.articlelist = this.renderData.articlelist.concat(res.data.data.articlelist);
+          const _data = res.data;
+          if (_data.data && _data.has_more) {
+            this.list = this.list.concat(_data.data);
             this.page++;
             this.loading = false;
           } else {
             this.loadOver = true;
           }
-
-
         })
     }
   },
   // 写法1 ：
-  async asyncData ({ $axios, query }) {
-    let response = await $axios.get(`/api/head/head/patentDetail`, {      params: {
-        hp_id: query.id || 2,
-        page: 1
-      }    })
+  async asyncData ({$axios, query }) {
+    const behot_time=(new Date().getTime()-2*60*60*1000).toString().substring(0,10);
+    let response = await $axios.get(process.server?`/list/`:`/api/list/`, {
+        params: {
+          tag: '__all__',
+          ac: 'wap',
+          count: '20',
+          format: 'json_raw',
+          as: 'A1750EBF6820180',
+          cp: '5EF860E1D8F03E1',
+          max_behot_time: behot_time,
+          _signature: 'zzhYuAAAkcgoT6C-L.hV.s84WK',
+          i: behot_time,
+          page: 1
+        }});
     return {
-      renderData: response.data.data,
-      pageId: query.id || 2
+      list: response.data.data,
     }
   }
-  // 写法2：
-  // asyncData (params) {//请求
-  //   return Vue.http.post(`/api/head/head/patentDetail`, {
-  //     hp_id: params.query.id || 2,
-  //     page: 1
-  //   })
-  //     .then(function (response) {
-  //       // console.log(response.data)
-  //       return { 
-  //         renderData: response.data.data,
-  //         pageId:params.query.id || 2
-  //          };
-  //     })
-  // },
 }
 </script>
 <style lang="less">
@@ -109,7 +111,7 @@ export default {
 }
 
 .column-wrap {
-  background-color: #f2f2f2;
+  // background-color: #f2f2f2;
 
   .head {
     background-color: #fff;
@@ -244,6 +246,14 @@ export default {
     span {
       font-size: 14px;
     }
+  }
+  .img-arr {
+    margin-top: 20px;
+    .pic {
+      width: 30%;
+    }
+    display: flex;
+    justify-content: space-between;
   }
 }
 .finish-tips {

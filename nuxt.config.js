@@ -59,16 +59,18 @@ router: {
 ],
 axios: {
   proxy: true,
-  baseURL: 'http://service.inswindows.com',
+  baseURL: 'https://m.toutiao.com',
   browserBaseURL:"/",
   credentials: false,
 },
 proxy: {
-  '/api': {
-    target: 'http://service.inswindows.com',
+  '/api/': {
+    target: 'https://m.toutiao.com',
     changeOrigin: true,
-    // pathRewrite: { '^/api': '' },
-  },
+    pathRewrite:{
+      '^/api/':'/'
+    }
+  }
 },
   /*
   ** Build configuration
