@@ -2,9 +2,12 @@
 // process.browser 可以判断当前是服务端在请求还是客户端在请求
 export default function ({ $axios, redirect }) {
  // request interceptor
+ if (process.server) {
+   $axios.setHeader('Referer', 'https://m.toutiao.com/?')
+ }
  $axios.interceptors.request.use(
   config => {
-    console.log("config",config)
+    console.log(config.headers)
     return config
   },
   error => {
@@ -13,7 +16,6 @@ export default function ({ $axios, redirect }) {
   }
  )
  $axios.interceptors.response.use( response =>{
-   console.log("response",response)
    //服务端请求状态码不为0就跳转到404，客户端正常返回
   if(response.data || process.browser){
      return response;
