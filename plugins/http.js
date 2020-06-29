@@ -13,6 +13,7 @@ export default function ({ $axios, redirect }) {
   }
  )
  $axios.interceptors.response.use( response =>{
+   console.log("response",response)
    //服务端请求状态码不为0就跳转到404，客户端正常返回
   if(response.data || process.browser){
      return response;
