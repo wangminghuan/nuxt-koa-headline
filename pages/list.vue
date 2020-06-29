@@ -99,6 +99,7 @@ export default {
           i: behot_time,
           page: 1
         }});
+    // console.log(response.config)
     return {
       list: response.data.data,
     }

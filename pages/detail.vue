@@ -134,6 +134,12 @@ export default {
     color: #999;
     line-height: 20px;
     margin: 32px 0;
+    display: flex;
+    justify-content: space-between;
+    .left,.right{
+      display: flex;
+      align-items: center;
+    }
 
     i {
       margin-left: 5px;
