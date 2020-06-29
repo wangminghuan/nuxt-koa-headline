@@ -4,6 +4,7 @@ export default function ({ $axios, redirect }) {
  // request interceptor
  $axios.interceptors.request.use(
   config => {
+    console.log("config",config)
     return config
   },
   error => {

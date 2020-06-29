@@ -85,6 +85,7 @@ export default {
   },
   // 写法1 ：
   async asyncData ({$axios, query }) {
+    console.log("process.server",process.server)
     const behot_time=(new Date().getTime()-2*60*60*1000).toString().substring(0,10);
     let response = await $axios.get(process.server?`/list/`:`/api/list/`, {
         params: {
